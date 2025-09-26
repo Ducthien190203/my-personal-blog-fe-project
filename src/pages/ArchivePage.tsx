@@ -45,9 +45,25 @@ const ArchivePage: React.FC = () => {
   );
 
   return (
-    <div className="min-h-screen">
-      {/* Header */}
-      <div className="bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50 dark:from-emerald-950/20 dark:via-teal-950/20 dark:to-cyan-950/20">
+    <div className="min-h-screen w-full relative bg-transparent">
+      {/* Teal Glow Top - chỉ light mode, luôn phủ toàn bộ viewport */}
+      <div
+        className="fixed inset-0 z-0 dark:hidden pointer-events-none"
+        style={{
+          background: "#ffffff",
+          backgroundImage: `
+            radial-gradient(
+              circle at top center,
+              rgba(56, 193, 182, 0.5),
+              transparent 70%
+            )
+          `,
+          filter: "blur(80px)",
+          backgroundRepeat: "no-repeat",
+        }}
+      />
+  {/* Header */}
+  <div className="relative z-10">
         <div className="container mx-auto px-4 py-16">
           <div className="text-center">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full mb-6">
@@ -64,7 +80,7 @@ const ArchivePage: React.FC = () => {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-12">
+  <div className="container mx-auto px-4 py-12 relative z-10">
         {loading ? (
           <div className="flex justify-center items-center py-12">
             <Loader2 className="h-8 w-8 animate-spin text-emerald-600" />

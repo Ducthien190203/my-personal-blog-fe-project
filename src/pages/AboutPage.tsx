@@ -54,9 +54,25 @@ const AboutPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen">
-      {/* Hero Section */}
-      <div className="bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50 dark:from-emerald-950/20 dark:via-teal-950/20 dark:to-cyan-950/20">
+  <div className="min-h-screen w-full relative bg-transparent">
+      {/* Teal Glow Top - chỉ light mode, luôn phủ toàn bộ viewport */}
+      <div
+        className="fixed inset-0 z-0 dark:hidden pointer-events-none"
+        style={{
+          background: "#ffffff",
+          backgroundImage: `
+            radial-gradient(
+              circle at top center,
+              rgba(56, 193, 182, 0.5),
+              transparent 70%
+            )
+          `,
+          filter: "blur(80px)",
+          backgroundRepeat: "no-repeat",
+        }}
+      />
+  {/* Hero Section */}
+  <div className="relative z-10">
         <div className="container mx-auto px-4 py-16">
           <div className="max-w-4xl mx-auto text-center">
             {/* Avatar */}
@@ -97,7 +113,7 @@ const AboutPage: React.FC = () => {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-12">
+  <div className="container mx-auto px-4 py-12 relative z-10">
         <div className="max-w-4xl mx-auto space-y-12">
           {/* Main About Card */}
           <Card className="overflow-hidden">

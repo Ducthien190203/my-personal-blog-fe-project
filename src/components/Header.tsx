@@ -18,6 +18,7 @@ const Header: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isSplashEnabled, setIsSplashEnabled] = useState(true);
   const [language, setLanguage] = useState<'en' | 'vi'>('en');
   const navigate = useNavigate();
   const location = useLocation();
@@ -99,7 +100,11 @@ const Header: React.FC = () => {
   }, []);
 
   const toggleSplash = () => {
-  // const toggleSplash = () => {};
+    setIsSplashEnabled(!isSplashEnabled);
+    // Dispatch custom event to toggle splash cursor
+    window.dispatchEvent(
+      new CustomEvent('toggleSplash', { detail: { enabled: !isSplashEnabled } })
+    );
   };
 
   const toggleLanguage = () => {
@@ -488,7 +493,38 @@ const Header: React.FC = () => {
             >
               <svg
                 width="16"
-                {/* Splash Toggle removed */}
+                height="16"
+                viewBox="0 0 24 24"
+                fill={isSplashEnabled ? 'url(#paint-gradient)' : 'none'}
+                stroke={isSplashEnabled ? 'none' : 'currentColor'}
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className={`transition-all duration-300 ${
+                  isSplashEnabled
+                    ? 'drop-shadow-sm'
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                <defs>
+                  <linearGradient
+                    id="paint-gradient"
+                    x1="0%"
+                    y1="0%"
+                    x2="100%"
+                    y2="100%"
+                  >
+                    <stop offset="0%" stopColor="#f59e0b" />
+                    <stop offset="25%" stopColor="#ec4899" />
+                    <stop offset="50%" stopColor="#a855f7" />
+                    <stop offset="75%" stopColor="#6366f1" />
+                    <stop offset="100%" stopColor="#10b981" />
+                  </linearGradient>
+                </defs>
+                <path d="m9.06 11.9 8.07-8.06a2.85 2.85 0 1 1 4.03 4.03L12.8 16.25" />
+                <path d="M7.07 14.94c-1.66 0-3 1.35-3 3.02 0 1.33-2.5 1.52-2 2.02 1.08 1.1 2.49 2.02 4 2.02 2.2 0 4-1.8 4-4.04a3.01 3.01 0 0 0-3-3.02z" />
+              </svg>
+            </button>
 
             {/* Language Toggle */}
             <button

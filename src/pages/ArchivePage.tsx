@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { mockApi } from '@/services/mockData';
@@ -62,8 +63,13 @@ const ArchivePage: React.FC = () => {
           backgroundRepeat: "no-repeat",
         }}
       />
-  {/* Header */}
-  <div className="relative z-10">
+      {/* Header with animation */}
+      <motion.div
+        className="relative z-10"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+      >
         <div className="container mx-auto px-4 py-16">
           <div className="text-center">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full mb-6">
@@ -78,9 +84,9 @@ const ArchivePage: React.FC = () => {
             </p>
           </div>
         </div>
-      </div>
+      </motion.div>
 
-  <div className="container mx-auto px-4 py-12 relative z-10">
+      <div className="container mx-auto px-4 py-12 relative z-10">
         {loading ? (
           <div className="flex justify-center items-center py-12">
             <Loader2 className="h-8 w-8 animate-spin text-emerald-600" />
@@ -89,17 +95,28 @@ const ArchivePage: React.FC = () => {
             </span>
           </div>
         ) : (
-          <div className="space-y-8">
+          <motion.div
+            className="space-y-8"
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
             {/* Timeline */}
             <div className="relative">
               {/* Timeline line */}
               <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-emerald-400 via-teal-400 to-cyan-400"></div>
 
               <div className="space-y-8">
-                {sortedArchiveKeys.map((monthKey) => {
+                {sortedArchiveKeys.map((monthKey, index) => {
                   const posts = archive[monthKey];
                   return (
-                    <div key={monthKey} className="relative">
+                    <motion.div
+                      key={monthKey}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: index * 0.1 }}
+                      className="relative"
+                    >
                       {/* Timeline dot */}
                       <div className="absolute left-6 w-4 h-4 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full border-4 border-background shadow-lg"></div>
 
@@ -149,12 +166,12 @@ const ArchivePage: React.FC = () => {
                           </CardContent>
                         </Card>
                       </div>
-                    </div>
+                    </motion.div>
                   );
                 })}
               </div>
             </div>
-          </div>
+          </motion.div>
         )}
       </div>
     </div>

@@ -8,6 +8,16 @@ import LightRays from './LightRays';
 const HeroSection: React.FC = () => {
   const [raysColor, setRaysColor] = React.useState('#A855F7');
 
+  const handleScrollToArticles = () => {
+    const articlesSection = document.getElementById('latest-articles');
+    if (articlesSection) {
+      articlesSection.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    }
+  };
+
   React.useEffect(() => {
     const updateRaysColor = () => {
       const isDark = document.documentElement.classList.contains('dark');
@@ -85,6 +95,7 @@ const HeroSection: React.FC = () => {
               transition={{ duration: 0.6, delay: 1.0 }}
             >
               <Button
+                onClick={handleScrollToArticles}
                 size="lg"
                 className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-medium px-8 py-3 rounded-full transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
               >

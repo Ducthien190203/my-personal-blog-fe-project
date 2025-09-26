@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useId } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Moon, Sun, X, Menu, Globe } from 'lucide-react';
 import { Switch } from '@/components/ui/switch';
 
@@ -21,8 +21,20 @@ const Header: React.FC = () => {
   const [isSplashEnabled, setIsSplashEnabled] = useState(true);
   const [language, setLanguage] = useState<'en' | 'vi'>('en');
   const navigate = useNavigate();
+  const location = useLocation();
   const searchRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
+
+  // Handle navigation click - scroll to top if already on the page
+  const handleNavClick = (path: string, event: React.MouseEvent) => {
+    if (location.pathname === path) {
+      event.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+    }
+  };
 
   // Handle keyboard shortcuts
   useEffect(() => {
@@ -144,7 +156,11 @@ const Header: React.FC = () => {
         `}
         >
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2 group -ml-2">
+          <Link
+            to="/"
+            onClick={(e) => handleNavClick('/', e)}
+            className="flex items-center space-x-2 group -ml-2"
+          >
             <div className="h-8 w-8 rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 group-hover:shadow-lg group-hover:shadow-purple-500/25 transition-all duration-300" />
             <span
               className={`
@@ -160,12 +176,13 @@ const Header: React.FC = () => {
           <nav className="hidden md:flex items-center space-x-6 flex-1 justify-center ml-8">
             <Link
               to="/"
+              onClick={(e) => handleNavClick('/', e)}
               className={`
                 flex items-center gap-2 text-base font-medium transition-all duration-300 relative group
                 ${
                   isScrolled
-                    ? 'text-foreground/70 hover:text-foreground hover:text-cyan-600 dark:hover:text-cyan-500'
-                    : 'text-foreground/80 hover:text-foreground hover:text-cyan-600 dark:hover:text-cyan-500 drop-shadow-sm'
+                    ? 'text-foreground/70 hover:text-cyan-700 dark:hover:text-cyan-400'
+                    : 'text-foreground/80 hover:text-cyan-700 dark:hover:text-cyan-400 drop-shadow-sm'
                 }
                 hover:scale-125
               `}
@@ -175,12 +192,13 @@ const Header: React.FC = () => {
             </Link>
             <Link
               to="/categories"
+              onClick={(e) => handleNavClick('/categories', e)}
               className={`
                 flex items-center gap-2 text-base font-medium transition-all duration-300 relative group
                 ${
                   isScrolled
-                    ? 'text-foreground/70 hover:text-foreground hover:text-cyan-600 dark:hover:text-cyan-500'
-                    : 'text-foreground/80 hover:text-foreground hover:text-cyan-600 dark:hover:text-cyan-500 drop-shadow-sm'
+                    ? 'text-foreground/70 hover:text-cyan-700 dark:hover:text-cyan-400'
+                    : 'text-foreground/80 hover:text-cyan-700 dark:hover:text-cyan-400 drop-shadow-sm'
                 }
                 hover:scale-125
               `}
@@ -190,12 +208,13 @@ const Header: React.FC = () => {
             </Link>
             <Link
               to="/tags"
+              onClick={(e) => handleNavClick('/tags', e)}
               className={`
                 flex items-center gap-2 text-base font-medium transition-all duration-300 relative group
                 ${
                   isScrolled
-                    ? 'text-foreground/70 hover:text-foreground hover:text-cyan-600 dark:hover:text-cyan-500'
-                    : 'text-foreground/80 hover:text-foreground hover:text-cyan-600 dark:hover:text-cyan-500 drop-shadow-sm'
+                    ? 'text-foreground/70 hover:text-cyan-700 dark:hover:text-cyan-400'
+                    : 'text-foreground/80 hover:text-cyan-700 dark:hover:text-cyan-400 drop-shadow-sm'
                 }
                 hover:scale-125
               `}
@@ -205,12 +224,13 @@ const Header: React.FC = () => {
             </Link>
             <Link
               to="/archive"
+              onClick={(e) => handleNavClick('/archive', e)}
               className={`
                 flex items-center gap-2 text-base font-medium transition-all duration-300 relative group
                 ${
                   isScrolled
-                    ? 'text-foreground/70 hover:text-foreground hover:text-cyan-600 dark:hover:text-cyan-500'
-                    : 'text-foreground/80 hover:text-foreground hover:text-cyan-600 dark:hover:text-cyan-500 drop-shadow-sm'
+                    ? 'text-foreground/70 hover:text-cyan-700 dark:hover:text-cyan-400'
+                    : 'text-foreground/80 hover:text-cyan-700 dark:hover:text-cyan-400 drop-shadow-sm'
                 }
                 hover:scale-125
               `}
@@ -220,12 +240,13 @@ const Header: React.FC = () => {
             </Link>
             <Link
               to="/about"
+              onClick={(e) => handleNavClick('/about', e)}
               className={`
                 flex items-center gap-2 text-base font-medium transition-all duration-300 relative group
                 ${
                   isScrolled
-                    ? 'text-foreground/70 hover:text-foreground hover:text-cyan-600 dark:hover:text-cyan-500'
-                    : 'text-foreground/80 hover:text-foreground hover:text-cyan-600 dark:hover:text-cyan-500 drop-shadow-sm'
+                    ? 'text-foreground/70 hover:text-cyan-700 dark:hover:text-cyan-400'
+                    : 'text-foreground/80 hover:text-cyan-700 dark:hover:text-cyan-400 drop-shadow-sm'
                 }
                 hover:scale-125
               `}
@@ -255,7 +276,7 @@ const Header: React.FC = () => {
               {/* Search Button with Keyboard Hint */}
               <button
                 onClick={toggleSearch}
-                className="flex items-center gap-2 px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/40 rounded-full border-2 border-gray-300 hover:border-cyan-400 dark:border-border dark:hover:border-border transition-all duration-200 group min-w-[100px] shadow-sm dark:shadow-none"
+                className="flex items-center gap-2 px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/40 rounded-full border-2 border-gray-300 hover:border-cyan-700 dark:border-border dark:hover:border-cyan-400 transition-all duration-200 group min-w-[100px] shadow-sm dark:shadow-none"
                 aria-label="Search"
               >
                 <img
@@ -264,7 +285,7 @@ const Header: React.FC = () => {
                   className="w-4 h-4 opacity-70"
                 />
                 <span className="hidden sm:block text-xs">Search...</span>
-                <kbd className="hidden sm:inline-flex items-center justify-center w-5 h-5 border border-gray-300/75 rounded text-xs font-medium text-muted-foreground/70 group-hover:border-cyan-400/75 transition-colors ml-auto dark:border-border/75 dark:group-hover:border-border/75">
+                <kbd className="hidden sm:inline-flex items-center justify-center w-5 h-5 border border-gray-300/75 rounded text-xs font-medium text-muted-foreground/70 group-hover:border-cyan-700/75 transition-colors ml-auto dark:border-border/75 dark:group-hover:border-cyan-400/75">
                   /
                 </kbd>
               </button>
@@ -462,7 +483,7 @@ const Header: React.FC = () => {
             {/* Splash Toggle - Icon only with subtle border */}
             <button
               onClick={toggleSplash}
-              className={`p-2 rounded-lg border-2 border-gray-300/60 hover:border-purple-400/60 dark:border-border/60 dark:hover:border-border/80 transition-all duration-300 hover:scale-110 bg-transparent w-8 h-8 flex items-center justify-center`}
+              className={`p-2 rounded-lg border-2 border-gray-300/60 hover:border-cyan-700 dark:border-border/60 dark:hover:border-cyan-400 transition-all duration-300 hover:scale-110 bg-transparent w-8 h-8 flex items-center justify-center`}
               aria-label="Toggle splash cursor effect"
               title={
                 isSplashEnabled
@@ -508,7 +529,7 @@ const Header: React.FC = () => {
             {/* Language Toggle */}
             <button
               onClick={toggleLanguage}
-              className="flex items-center justify-center p-2 rounded-lg border-2 border-gray-300/60 hover:border-blue-400/60 dark:border-border/60 dark:hover:border-border/80 transition-all duration-300 hover:scale-110 bg-transparent w-8 h-8"
+              className="flex items-center justify-center p-2 rounded-lg border-2 border-gray-300/60 hover:border-cyan-700 dark:border-border/60 dark:hover:border-cyan-400 transition-all duration-300 hover:scale-110 bg-transparent w-8 h-8"
               aria-label="Toggle language"
               title={`Switch to ${language === 'en' ? 'Tiếng Việt' : 'English'}`}
             >

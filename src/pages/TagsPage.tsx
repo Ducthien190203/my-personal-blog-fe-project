@@ -83,290 +83,652 @@ const TagsPage: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen pt-24 flex items-center justify-center">
-        <div className="flex items-center gap-2">
-          <Loader2 className="h-6 w-6 animate-spin text-primary" />
-          <span className="text-muted-foreground">Loading tags...</span>
+      <>
+        {/* Light Mode Background */}
+        <div className="min-h-screen w-full bg-white relative dark:hidden">
+          {/* Magenta Orb Grid Background */}
+          <div
+            className="absolute inset-0 z-0"
+            style={{
+              background: 'white',
+              backgroundImage: `
+                linear-gradient(to right, rgba(71,85,105,0.3) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(71,85,105,0.3) 1px, transparent 1px),
+                radial-gradient(circle at 50% 60%, rgba(236,72,153,0.35) 0%, rgba(168,85,247,0.15) 40%, transparent 70%)
+              `,
+              backgroundSize: '40px 40px, 40px 40px, 100% 100%',
+            }}
+          />
+          <div className="absolute inset-0 bg-white/60 z-[1]" />
+          <div className="relative z-[2] min-h-screen pt-24 flex items-center justify-center">
+            <div className="flex items-center gap-2">
+              <Loader2 className="h-6 w-6 animate-spin text-primary" />
+              <span className="text-muted-foreground">Loading tags...</span>
+            </div>
+          </div>
         </div>
-      </div>
+
+        {/* Dark Mode Background */}
+        <div className="min-h-screen w-full bg-[#020617] relative hidden dark:block">
+          {/* Dark Basic Grid Background - Slate 950 */}
+          <div
+            className="absolute inset-0 z-0"
+            style={{
+              background: '#020617',
+              backgroundImage: `
+                linear-gradient(to right, rgba(100,116,139,0.4) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(100,116,139,0.4) 1px, transparent 1px)
+              `,
+              backgroundSize: '40px 40px',
+            }}
+          />
+          <div className="relative z-[2] min-h-screen pt-24 flex items-center justify-center">
+            <div className="flex items-center gap-2">
+              <Loader2 className="h-6 w-6 animate-spin text-primary" />
+              <span className="text-muted-foreground">Loading tags...</span>
+            </div>
+          </div>
+        </div>
+      </>
     );
   }
 
   return (
-    <div className="min-h-screen pt-24 pb-16">
-      <div className="container mx-auto px-4 max-w-7xl">
-        {/* Header */}
-        <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="p-3 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-xl text-white">
-              <Hash className="h-8 w-8" />
-            </div>
-            <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 via-cyan-600 to-purple-600 bg-clip-text text-transparent leading-tight py-2">
-              Tags
-            </h1>
-          </div>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Discover content through tags. Use the search bar to find specific
-            topics, or browse the tag cloud below.
-          </p>
-        </motion.div>
-
-        {/* Search Bar */}
-        <motion.div
-          className="max-w-md mx-auto mb-12"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-        >
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input
-              type="text"
-              placeholder="Search tags..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10 pr-4 py-3 text-base rounded-full border-2 border-border/50 focus:border-primary/50 transition-colors"
-            />
-          </div>
-          {searchTerm && (
-            <motion.p
-              className="text-sm text-muted-foreground mt-2 text-center"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.3 }}
+    <>
+      {/* Light Mode Background */}
+      <div className="min-h-screen w-full bg-white relative dark:hidden">
+        {/* Magenta Orb Grid Background */}
+        <div
+          className="absolute inset-0 z-0"
+          style={{
+            background: 'white',
+            backgroundImage: `
+              linear-gradient(to right, rgba(71,85,105,0.3) 1px, transparent 1px),
+              linear-gradient(to bottom, rgba(71,85,105,0.3) 1px, transparent 1px),
+              radial-gradient(circle at 50% 60%, rgba(236,72,153,0.35) 0%, rgba(168,85,247,0.15) 40%, transparent 70%)
+            `,
+            backgroundSize: '40px 40px, 40px 40px, 100% 100%',
+          }}
+        />
+        <div className="absolute inset-0 bg-white/60 z-[1]" />
+        <div className="relative z-[2] min-h-screen pt-24 pb-16">
+          <div className="container mx-auto px-4 max-w-7xl">
+            {/* Header */}
+            <motion.div
+              className="text-center mb-16"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
             >
-              Found {filteredTags.length} tag
-              {filteredTags.length !== 1 ? 's' : ''} matching "{searchTerm}"
-            </motion.p>
-          )}
-        </motion.div>
+              <div className="flex items-center justify-center gap-3 mb-4">
+                <div className="p-3 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-xl text-white">
+                  <Hash className="h-8 w-8" />
+                </div>
+                <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 via-cyan-600 to-purple-600 bg-clip-text text-transparent leading-tight py-2">
+                  Tags
+                </h1>
+              </div>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Discover content through tags. Use the search bar to find
+                specific topics, or browse the tag cloud below.
+              </p>
+            </motion.div>
 
-        {/* Tags Cloud */}
-        <motion.div
-          className="mb-12"
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-        >
-          <div className="flex items-center gap-2 mb-6">
-            <Sparkles className="h-5 w-5 text-primary" />
-            <h2 className="text-xl font-semibold">
-              Tag Cloud ({filteredTags.length} tags)
-            </h2>
-          </div>
+            {/* Search Bar */}
+            <motion.div
+              className="max-w-md mx-auto mb-12"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Input
+                  type="text"
+                  placeholder="Search tags..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="pl-10 pr-4 py-3 text-base rounded-full border-2 border-border/50 focus:border-primary/50 transition-colors"
+                />
+              </div>
+              {searchTerm && (
+                <motion.p
+                  className="text-sm text-muted-foreground mt-2 text-center"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  Found {filteredTags.length} tag
+                  {filteredTags.length !== 1 ? 's' : ''} matching "{searchTerm}"
+                </motion.p>
+              )}
+            </motion.div>
 
-          <AnimatePresence mode="wait">
-            {filteredTags.length > 0 ? (
-              <motion.div
-                key="tags-grid"
-                className="flex flex-wrap gap-3 justify-center"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.3 }}
-              >
-                {filteredTags.map((tag, index) => (
+            {/* Tags Cloud */}
+            <motion.div
+              className="mb-12"
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+            >
+              <div className="flex items-center gap-2 mb-6">
+                <Sparkles className="h-5 w-5 text-primary" />
+                <h2 className="text-xl font-semibold">
+                  Tag Cloud ({filteredTags.length} tags)
+                </h2>
+              </div>
+
+              <AnimatePresence mode="wait">
+                {filteredTags.length > 0 ? (
                   <motion.div
-                    key={tag.id}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.3, delay: index * 0.05 }}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                    key="tags-grid"
+                    className="flex flex-wrap gap-3 justify-center"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3 }}
                   >
-                    <Badge
-                      variant={
-                        selectedTag === tag.slug
-                          ? 'default'
-                          : getTagVariant(index)
-                      }
-                      className={`cursor-pointer transition-all duration-300 hover:shadow-lg ${getTagSize(tag.postCount)} ${
-                        selectedTag === tag.slug
-                          ? 'ring-2 ring-primary/50 shadow-lg shadow-primary/20 bg-primary text-primary-foreground'
-                          : 'hover:shadow-blue-500/20'
-                      }`}
-                      onClick={() => handleTagClick(tag.slug)}
-                    >
-                      <Hash className="h-3 w-3 mr-1" />
-                      {tag.name}
-                      <span className="ml-2 text-xs opacity-75">
-                        {tag.postCount}
-                      </span>
-                    </Badge>
+                    {filteredTags.map((tag, index) => (
+                      <motion.div
+                        key={tag.id}
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.3, delay: index * 0.05 }}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <Badge
+                          variant={
+                            selectedTag === tag.slug
+                              ? 'default'
+                              : getTagVariant(index)
+                          }
+                          className={`cursor-pointer transition-all duration-300 hover:shadow-lg ${getTagSize(tag.postCount)} ${
+                            selectedTag === tag.slug
+                              ? 'ring-2 ring-primary/50 shadow-lg shadow-primary/20 bg-primary text-primary-foreground'
+                              : 'hover:shadow-blue-500/20'
+                          }`}
+                          onClick={() => handleTagClick(tag.slug)}
+                        >
+                          <Hash className="h-3 w-3 mr-1" />
+                          {tag.name}
+                          <span className="ml-2 text-xs opacity-75">
+                            {tag.postCount}
+                          </span>
+                        </Badge>
+                      </motion.div>
+                    ))}
                   </motion.div>
-                ))}
-              </motion.div>
-            ) : (
-              <motion.div
-                key="no-tags"
-                className="text-center py-12"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.3 }}
-              >
-                <div className="flex flex-col items-center gap-4">
-                  <div className="p-6 bg-muted/50 rounded-full">
-                    <Search className="h-12 w-12 text-muted-foreground/50" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold mb-2">
-                      No tags found
-                    </h3>
-                    <p className="text-muted-foreground">
-                      Try adjusting your search terms or browse all available
-                      tags.
-                    </p>
-                  </div>
-                  <button
-                    onClick={() => setSearchTerm('')}
-                    className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
+                ) : (
+                  <motion.div
+                    key="no-tags"
+                    className="text-center py-12"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3 }}
                   >
-                    <Hash className="h-4 w-4" />
-                    Show All Tags
-                  </button>
+                    <div className="flex flex-col items-center gap-4">
+                      <div className="p-6 bg-muted/50 rounded-full">
+                        <Search className="h-12 w-12 text-muted-foreground/50" />
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-semibold mb-2">
+                          No tags found
+                        </h3>
+                        <p className="text-muted-foreground">
+                          Try adjusting your search terms or browse all
+                          available tags.
+                        </p>
+                      </div>
+                      <button
+                        onClick={() => setSearchTerm('')}
+                        className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
+                      >
+                        <Hash className="h-4 w-4" />
+                        Show All Tags
+                      </button>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
+
+            {/* Posts Section */}
+            {selectedTag && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                <div className="border-t border-border/50 pt-12">
+                  <div className="flex items-center gap-3 mb-8">
+                    <h2 className="text-2xl md:text-3xl font-bold flex items-center gap-2">
+                      <Hash className="h-8 w-8 text-primary" />
+                      Posts tagged with "
+                      {tags.find((t) => t.slug === selectedTag)?.name}"
+                    </h2>
+                    <Badge variant="outline" className="text-sm">
+                      {posts.length} {posts.length === 1 ? 'post' : 'posts'}
+                    </Badge>
+                  </div>
+
+                  {postsLoading ? (
+                    <div className="flex items-center justify-center py-12">
+                      <div className="flex items-center gap-2">
+                        <Loader2 className="h-5 w-5 animate-spin text-primary" />
+                        <span className="text-muted-foreground">
+                          Loading posts...
+                        </span>
+                      </div>
+                    </div>
+                  ) : posts.length > 0 ? (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {posts.map((post, index) => (
+                        <motion.div
+                          key={post.id}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.5, delay: index * 0.1 }}
+                        >
+                          <PostCard {...post} />
+                        </motion.div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="text-center py-12">
+                      <div className="flex flex-col items-center gap-4">
+                        <div className="p-6 bg-muted/50 rounded-full">
+                          <FileText className="h-12 w-12 text-muted-foreground/50" />
+                        </div>
+                        <div>
+                          <h3 className="text-lg font-semibold mb-2">
+                            No posts found
+                          </h3>
+                          <p className="text-muted-foreground">
+                            There are no posts with this tag yet.
+                          </p>
+                        </div>
+                        <Link
+                          to="/"
+                          className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
+                        >
+                          <FileText className="h-4 w-4" />
+                          Browse All Posts
+                        </Link>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </motion.div>
             )}
-          </AnimatePresence>
-        </motion.div>
 
-        {/* Posts Section */}
-        {selectedTag && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <div className="border-t border-border/50 pt-12">
-              <div className="flex items-center gap-3 mb-8">
-                <h2 className="text-2xl md:text-3xl font-bold flex items-center gap-2">
-                  <Hash className="h-8 w-8 text-primary" />
-                  Posts tagged with "
-                  {tags.find((t) => t.slug === selectedTag)?.name}"
-                </h2>
-                <Badge variant="outline" className="text-sm">
-                  {posts.length} {posts.length === 1 ? 'post' : 'posts'}
-                </Badge>
-              </div>
-
-              {postsLoading ? (
-                <div className="flex items-center justify-center py-12">
-                  <div className="flex items-center gap-2">
-                    <Loader2 className="h-5 w-5 animate-spin text-primary" />
-                    <span className="text-muted-foreground">
-                      Loading posts...
-                    </span>
+            {/* Statistics */}
+            {!selectedTag && filteredTags.length > 0 && (
+              <motion.div
+                className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+              >
+                <div className="text-center p-6 bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-950/20 dark:to-cyan-950/20 rounded-xl border border-blue-200/20 dark:border-blue-800/20">
+                  <div className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">
+                    {filteredTags.length}
+                  </div>
+                  <div className="text-sm text-muted-foreground">
+                    Total Tags
                   </div>
                 </div>
-              ) : posts.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {posts.map((post, index) => (
-                    <motion.div
-                      key={post.id}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, delay: index * 0.1 }}
-                    >
-                      <PostCard {...post} />
-                    </motion.div>
-                  ))}
-                </div>
-              ) : (
-                <div className="text-center py-12">
-                  <div className="flex flex-col items-center gap-4">
-                    <div className="p-6 bg-muted/50 rounded-full">
-                      <FileText className="h-12 w-12 text-muted-foreground/50" />
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-semibold mb-2">
-                        No posts found
-                      </h3>
-                      <p className="text-muted-foreground">
-                        There are no posts with this tag yet.
-                      </p>
-                    </div>
-                    <Link
-                      to="/"
-                      className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
-                    >
-                      <FileText className="h-4 w-4" />
-                      Browse All Posts
-                    </Link>
+                <div className="text-center p-6 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-950/20 dark:to-pink-950/20 rounded-xl border border-purple-200/20 dark:border-purple-800/20">
+                  <div className="text-3xl font-bold text-purple-600 dark:text-purple-400 mb-2">
+                    {Math.max(...filteredTags.map((t) => t.postCount))}
+                  </div>
+                  <div className="text-sm text-muted-foreground">
+                    Most Popular
                   </div>
                 </div>
-              )}
-            </div>
-          </motion.div>
-        )}
+                <div className="text-center p-6 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-950/20 dark:to-emerald-950/20 rounded-xl border border-green-200/20 dark:border-green-800/20">
+                  <div className="text-3xl font-bold text-green-600 dark:text-green-400 mb-2">
+                    {filteredTags.reduce((sum, tag) => sum + tag.postCount, 0)}
+                  </div>
+                  <div className="text-sm text-muted-foreground">
+                    Total Posts
+                  </div>
+                </div>
+              </motion.div>
+            )}
 
-        {/* Statistics */}
-        {!selectedTag && filteredTags.length > 0 && (
-          <motion.div
-            className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-          >
-            <div className="text-center p-6 bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-950/20 dark:to-cyan-950/20 rounded-xl border border-blue-200/20 dark:border-blue-800/20">
-              <div className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">
-                {filteredTags.length}
-              </div>
-              <div className="text-sm text-muted-foreground">Total Tags</div>
-            </div>
-            <div className="text-center p-6 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-950/20 dark:to-pink-950/20 rounded-xl border border-purple-200/20 dark:border-purple-800/20">
-              <div className="text-3xl font-bold text-purple-600 dark:text-purple-400 mb-2">
-                {Math.max(...filteredTags.map((t) => t.postCount))}
-              </div>
-              <div className="text-sm text-muted-foreground">Most Popular</div>
-            </div>
-            <div className="text-center p-6 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-950/20 dark:to-emerald-950/20 rounded-xl border border-green-200/20 dark:border-green-800/20">
-              <div className="text-3xl font-bold text-green-600 dark:text-green-400 mb-2">
-                {filteredTags.reduce((sum, tag) => sum + tag.postCount, 0)}
-              </div>
-              <div className="text-sm text-muted-foreground">Total Posts</div>
-            </div>
-          </motion.div>
-        )}
-
-        {/* Call to Action */}
-        {!selectedTag && (
-          <motion.div
-            className="text-center mt-16 p-8 bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-950/20 dark:to-cyan-950/20 rounded-2xl border border-blue-200/20 dark:border-blue-800/20"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-          >
-            <h3 className="text-xl font-semibold mb-4">Explore by topic</h3>
-            <p className="text-muted-foreground mb-6">
-              Click on any tag above to discover related content, or explore
-              posts by categories.
-            </p>
-            <div className="flex items-center justify-center gap-4">
-              <Link
-                to="/categories"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-full hover:bg-primary/90 transition-all duration-300 hover:scale-105"
+            {/* Call to Action */}
+            {!selectedTag && (
+              <motion.div
+                className="text-center mt-16 p-8 bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-950/20 dark:to-cyan-950/20 rounded-2xl border border-blue-200/20 dark:border-blue-800/20"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
               >
-                <TrendingUp className="h-4 w-4" />
-                Browse Categories
-              </Link>
-              <Link
-                to="/"
-                className="inline-flex items-center gap-2 px-6 py-3 border border-primary/20 text-primary rounded-full hover:bg-primary/5 transition-all duration-300 hover:scale-105"
-              >
-                <FileText className="h-4 w-4" />
-                All Posts
-              </Link>
-            </div>
-          </motion.div>
-        )}
+                <h3 className="text-xl font-semibold mb-4">Explore by topic</h3>
+                <p className="text-muted-foreground mb-6">
+                  Click on any tag above to discover related content, or explore
+                  posts by categories.
+                </p>
+                <div className="flex items-center justify-center gap-4">
+                  <Link
+                    to="/categories"
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-full hover:bg-primary/90 transition-all duration-300 hover:scale-105"
+                  >
+                    <TrendingUp className="h-4 w-4" />
+                    Browse Categories
+                  </Link>
+                  <Link
+                    to="/"
+                    className="inline-flex items-center gap-2 px-6 py-3 border border-primary/20 text-primary rounded-full hover:bg-primary/5 transition-all duration-300 hover:scale-105"
+                  >
+                    <FileText className="h-4 w-4" />
+                    All Posts
+                  </Link>
+                </div>
+              </motion.div>
+            )}
+          </div>
+        </div>
       </div>
-    </div>
+
+      {/* Dark Mode Background */}
+      <div className="min-h-screen w-full bg-[#020617] relative hidden dark:block">
+        {/* Dark Basic Grid Background - Slate 950 */}
+        <div
+          className="absolute inset-0 z-0"
+          style={{
+            background: '#020617',
+            backgroundImage: `
+          linear-gradient(to right, rgba(100,116,139,0.4) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(100,116,139,0.4) 1px, transparent 1px)
+        `,
+            backgroundSize: '40px 40px',
+          }}
+        />
+        <div className="relative z-[2] min-h-screen pt-24 pb-16">
+          <div className="container mx-auto px-4 max-w-7xl">
+            {/* Header */}
+            <motion.div
+              className="text-center mb-16"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <div className="flex items-center justify-center gap-3 mb-4">
+                <div className="p-3 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-xl text-white">
+                  <Hash className="h-8 w-8" />
+                </div>
+                <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 via-cyan-600 to-purple-600 bg-clip-text text-transparent leading-tight py-2">
+                  Tags
+                </h1>
+              </div>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Discover content through tags. Use the search bar to find
+                specific topics, or browse the tag cloud below.
+              </p>
+            </motion.div>
+
+            {/* Search Bar */}
+            <motion.div
+              className="max-w-md mx-auto mb-12"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Input
+                  type="text"
+                  placeholder="Search tags..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="pl-10 pr-4 py-3 text-base rounded-full border-2 border-border/50 focus:border-primary/50 transition-colors"
+                />
+              </div>
+              {searchTerm && (
+                <motion.p
+                  className="text-sm text-muted-foreground mt-2 text-center"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  Found {filteredTags.length} tag
+                  {filteredTags.length !== 1 ? 's' : ''} matching "{searchTerm}"
+                </motion.p>
+              )}
+            </motion.div>
+
+            {/* Tags Cloud */}
+            <motion.div
+              className="mb-12"
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+            >
+              <div className="flex items-center gap-2 mb-6">
+                <Sparkles className="h-5 w-5 text-primary" />
+                <h2 className="text-xl font-semibold">
+                  Tag Cloud ({filteredTags.length} tags)
+                </h2>
+              </div>
+
+              <AnimatePresence mode="wait">
+                {filteredTags.length > 0 ? (
+                  <motion.div
+                    key="tags-grid"
+                    className="flex flex-wrap gap-3 justify-center"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    {filteredTags.map((tag, index) => (
+                      <motion.div
+                        key={tag.id}
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.3, delay: index * 0.05 }}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <Badge
+                          variant={
+                            selectedTag === tag.slug
+                              ? 'default'
+                              : getTagVariant(index)
+                          }
+                          className={`cursor-pointer transition-all duration-300 hover:shadow-lg ${getTagSize(tag.postCount)} ${
+                            selectedTag === tag.slug
+                              ? 'ring-2 ring-primary/50 shadow-lg shadow-primary/20 bg-primary text-primary-foreground'
+                              : 'hover:shadow-blue-500/20'
+                          }`}
+                          onClick={() => handleTagClick(tag.slug)}
+                        >
+                          <Hash className="h-3 w-3 mr-1" />
+                          {tag.name}
+                          <span className="ml-2 text-xs opacity-75">
+                            {tag.postCount}
+                          </span>
+                        </Badge>
+                      </motion.div>
+                    ))}
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="no-tags"
+                    className="text-center py-12"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <div className="flex flex-col items-center gap-4">
+                      <div className="p-6 bg-muted/50 rounded-full">
+                        <Search className="h-12 w-12 text-muted-foreground/50" />
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-semibold mb-2">
+                          No tags found
+                        </h3>
+                        <p className="text-muted-foreground">
+                          Try adjusting your search terms or browse all
+                          available tags.
+                        </p>
+                      </div>
+                      <button
+                        onClick={() => setSearchTerm('')}
+                        className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
+                      >
+                        <Hash className="h-4 w-4" />
+                        Show All Tags
+                      </button>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
+
+            {/* Posts Section */}
+            {selectedTag && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                <div className="border-t border-border/50 pt-12">
+                  <div className="flex items-center gap-3 mb-8">
+                    <h2 className="text-2xl md:text-3xl font-bold flex items-center gap-2">
+                      <Hash className="h-8 w-8 text-primary" />
+                      Posts tagged with "
+                      {tags.find((t) => t.slug === selectedTag)?.name}"
+                    </h2>
+                    <Badge variant="outline" className="text-sm">
+                      {posts.length} {posts.length === 1 ? 'post' : 'posts'}
+                    </Badge>
+                  </div>
+
+                  {postsLoading ? (
+                    <div className="flex items-center justify-center py-12">
+                      <div className="flex items-center gap-2">
+                        <Loader2 className="h-5 w-5 animate-spin text-primary" />
+                        <span className="text-muted-foreground">
+                          Loading posts...
+                        </span>
+                      </div>
+                    </div>
+                  ) : posts.length > 0 ? (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {posts.map((post, index) => (
+                        <motion.div
+                          key={post.id}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.5, delay: index * 0.1 }}
+                        >
+                          <PostCard {...post} />
+                        </motion.div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="text-center py-12">
+                      <div className="flex flex-col items-center gap-4">
+                        <div className="p-6 bg-muted/50 rounded-full">
+                          <FileText className="h-12 w-12 text-muted-foreground/50" />
+                        </div>
+                        <div>
+                          <h3 className="text-lg font-semibold mb-2">
+                            No posts found
+                          </h3>
+                          <p className="text-muted-foreground">
+                            There are no posts with this tag yet.
+                          </p>
+                        </div>
+                        <Link
+                          to="/"
+                          className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
+                        >
+                          <FileText className="h-4 w-4" />
+                          Browse All Posts
+                        </Link>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </motion.div>
+            )}
+
+            {/* Statistics */}
+            {!selectedTag && filteredTags.length > 0 && (
+              <motion.div
+                className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+              >
+                <div className="text-center p-6 bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-950/20 dark:to-cyan-950/20 rounded-xl border border-blue-200/20 dark:border-blue-800/20">
+                  <div className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">
+                    {filteredTags.length}
+                  </div>
+                  <div className="text-sm text-muted-foreground">
+                    Total Tags
+                  </div>
+                </div>
+                <div className="text-center p-6 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-950/20 dark:to-pink-950/20 rounded-xl border border-purple-200/20 dark:border-purple-800/20">
+                  <div className="text-3xl font-bold text-purple-600 dark:text-purple-400 mb-2">
+                    {Math.max(...filteredTags.map((t) => t.postCount))}
+                  </div>
+                  <div className="text-sm text-muted-foreground">
+                    Most Popular
+                  </div>
+                </div>
+                <div className="text-center p-6 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-950/20 dark:to-emerald-950/20 rounded-xl border border-green-200/20 dark:border-green-800/20">
+                  <div className="text-3xl font-bold text-green-600 dark:text-green-400 mb-2">
+                    {filteredTags.reduce((sum, tag) => sum + tag.postCount, 0)}
+                  </div>
+                  <div className="text-sm text-muted-foreground">
+                    Total Posts
+                  </div>
+                </div>
+              </motion.div>
+            )}
+
+            {/* Call to Action */}
+            {!selectedTag && (
+              <motion.div
+                className="text-center mt-16 p-8 bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-950/20 dark:to-cyan-950/20 rounded-2xl border border-blue-200/20 dark:border-blue-800/20"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+              >
+                <h3 className="text-xl font-semibold mb-4">Explore by topic</h3>
+                <p className="text-muted-foreground mb-6">
+                  Click on any tag above to discover related content, or explore
+                  posts by categories.
+                </p>
+                <div className="flex items-center justify-center gap-4">
+                  <Link
+                    to="/categories"
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-full hover:bg-primary/90 transition-all duration-300 hover:scale-105"
+                  >
+                    <TrendingUp className="h-4 w-4" />
+                    Browse Categories
+                  </Link>
+                  <Link
+                    to="/"
+                    className="inline-flex items-center gap-2 px-6 py-3 border border-primary/20 text-primary rounded-full hover:bg-primary/5 transition-all duration-300 hover:scale-105"
+                  >
+                    <FileText className="h-4 w-4" />
+                    All Posts
+                  </Link>
+                </div>
+              </motion.div>
+            )}
+          </div>
+        </div>
+      </div>
+    </>
   );
 };
 

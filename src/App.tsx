@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import SplashCursor from './components/SplashCursor';
+import ScrollToTop from './components/ScrollToTop';
 import HomePage from './pages/HomePage';
 import ArchivePage from './pages/ArchivePage';
 import AboutPage from './pages/AboutPage';
@@ -12,6 +13,7 @@ import TagsPage from './pages/TagsPage';
 function App() {
   return (
     <div className="min-h-screen flex flex-col relative">
+      <ScrollToTop />
       <SplashCursor
         SPLAT_RADIUS={0.2}
         SPLAT_FORCE={6000}

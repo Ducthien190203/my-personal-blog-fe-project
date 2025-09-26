@@ -30,7 +30,7 @@ const HomePage: React.FC = () => {
       <HeroSection />
 
       {/* Latest Posts Section */}
-      <section className="py-16 px-4">
+      <section id="latest-articles" className="py-16 px-4">
         <div className="container mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">
